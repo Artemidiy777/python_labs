@@ -2,7 +2,7 @@ n = int(input("Сколько людей пришло: "))
 full_time = 0
 part_time = 0
 for i in range(n):
-    surname, name, age, form = input().split()
+    surname, name, age, form = input('in_1: ').split()
     if form == "True":
         full_time += 1
     else:
