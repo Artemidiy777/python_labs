@@ -7,7 +7,7 @@
 -ввел данные строку и интеджер
 -через f строку соединил, чтобы можно было легко вывести переменные
 
-![](.images/lab01/image_01.png)
+![](./images/lab01/image_01.png)
 
 ---Задание 2:
 
@@ -16,7 +16,7 @@
 (вдруг кто-то введет число с запятой)
 -вывел данные через f строку
 
-![](.images/lab01/image_02.png)
+![](./images/lab01/image_02.png)
 
 ---Задание 3:
 
@@ -25,7 +25,7 @@
 -вывел через f строку с тремя кавычками,
 чтобы переносить на другие строки код
 
-![](.images/lab01/image_03.png)
+![](./images/lab01/image_03.png)
 
 ---Задание 4:
 
@@ -35,7 +35,7 @@
 -02d это означает миниумум 2 символа дополнить 
 -если меньше 2 то добавить 0
 
-![](.images/lab01/image_04.png)
+![](./images/lab01/image_04.png)
 
 
 ---Задание 5:
@@ -44,7 +44,7 @@
 -разбил его на несколько частей и вернул в виде списка
 -вывел с помощью индексов списка
 
-![](.images/lab01/image_05.png)
+![](./images/lab01/image_05.png)
 
 
 ---Задание 6:
@@ -54,7 +54,7 @@
 -считал строку и разбил ее по пробелам на 4 части
 -инпут возвращает строку поэтому True и False будут тоже строчные
 
-![](.images/lab01/image_06.png)
+![](./images/lab01/image_06.png)
 
 
 ---Задание 7:
@@ -86,7 +86,7 @@
 # в конце джоиню, чтобы склеить все найденные символы из списка result
 
 
-![](.images/lab01/image_07.png)
+![](./images/lab01/image_07.png)
 
 
 
@@ -109,9 +109,9 @@ sorted до set т.к нужно вернуть список а не множе�
 добавляем в список result каждый элемент списка или кортежа
 если в списке сидит что-то другое то выбрасывается ошибка и функция падает
 
-![](.images/lab02/image_arrays01.png)
-![](.images/lab02/image_arrays02.png)
-![](.images/lab02/image_arrays_03.png)
+![](./images/lab02/image_arrays01.png)
+![](./images/lab02/image_arrays02.png)
+![](./images/lab02/image_arrays_03.png)
 
 
 
@@ -140,9 +140,9 @@ cols(столбцы)
 в total добавляю сумму по столбцам
 
 
-![](.images/lab02/image_matrix_col_sums.png)
-![](.images/lab02/image_matrix_transpose.png)
-![](.images/lab02/image_matrix_row_sums.png)
+![](./images/lab02/image_matrix_col_sums.png)
+![](./images/lab02/image_matrix_transpose.png)
+![](./images/lab02/image_matrix_row_sums.png)
 
 
 ---Задание 3:
@@ -166,5 +166,5 @@ cols(столбцы)
 # инициалы объединил из списка (upper сделал их заглавными буквами)
 
 
-![](.images/lab02/image_tuples.png)
+![](./images/lab02/image_tuples.png)
 
