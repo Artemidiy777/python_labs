@@ -78,15 +78,17 @@ $ python3 src/lib/text.py
 ```python
 """ЛР3, задание Б: статистика по тексту из stdin"""
 
-import os
 import sys
 import argparse
+from pathlib import Path
 
-SRC_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(SRC_DIR)
-#os.path.abspath достраивает до полного пути
-#os.path.dirname отрезает от пути ласт часть и возвращает то что осталось
-#делаем 2 раза, чтобы дойти до src
+SRC_DIR = Path(__file__).resolve().parent.parent
+sys.path.append(str(SRC_DIR))
+#Path(__file__) это путь к этому самому файлу
+#.resolve() достраивает его до полного пути от корня диска
+#.parent поднимает на папку вверх, делаем 2 раза чтобы дойти до src
+#str() нужен потому что sys.path хранит строки, объект Path он не распознает
+
 from lib.text import normalize, tokenize, count_freq, top_n
 
 
@@ -129,8 +131,12 @@ if __name__ == "__main__":
 ```
 
 >- `sys.stdin.read()` читает весь ввод целиком, до EOF 
->- `SRC_DIR` — путь к папке `src/`; без него Python при запуске
->  `python3 src/lab03/text_stats.py` видит только папку `lab03` и не находит `lib`
+>- `SRC_DIR` — путь к папке `src/`, считается через `pathlib`:
+>  `Path(__file__).resolve().parent.parent` — два раза `.parent`, чтобы подняться
+>  от файла до `src`. Без этого Python при запуске видит только папку `lab03`
+>  и не находит `lib`
+>- `str(SRC_DIR)` — обёртка обязательна: `sys.path` хранит строки, объект `Path`
+>  он молча не распознает, и импорт сломается без всякой ошибки
 >- `len(tokens)` — всего слов, `len(freq)` — уникальных (ключи словаря не повторяются)
 >- `ljust()` дополняет слово пробелами до нужной ширины, чтобы столбцы таблицы совпали
 >- режим вывода приходит параметром `table_mode` функции `main`, а значение

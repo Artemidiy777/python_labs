@@ -1,14 +1,16 @@
 """ЛР3, задание Б: статистика по тексту из stdin"""
 
-import os
 import sys
 import argparse
+from pathlib import Path
 
-SRC_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(SRC_DIR)
-#os.path.abspath достраивает до полного пути
-#os.path.dirname отрезает от пути ласт часть и возвращает то что осталось
-#делаем 2 раза, чтобы дойти до src
+SRC_DIR = Path(__file__).resolve().parent.parent
+sys.path.append(str(SRC_DIR))
+#Path(__file__) это путь к этому самому файлу
+#.resolve() достраивает его до полного пути от корня диска
+#.parent поднимает на папку вверх, делаем 2 раза чтобы дойти до src
+#str() нужен потому что sys.path хранит строки, объект Path он не распознает
+
 from lib.text import normalize, tokenize, count_freq, top_n
 
 
@@ -50,5 +52,3 @@ if __name__ == "__main__":
     main(table_mode=args.table)
 
 #echo "привет мир привет" | python3 src/lab03/text_stats.py
-
-
