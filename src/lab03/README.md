@@ -76,17 +76,21 @@ $ python3 src/lib/text.py
 токенизирует и печатает статистику.
 
 ```python
+"""ЛР3, задание Б: статистика по тексту из stdin"""
+
 import os
 import sys
+import argparse
 
-# добавляем папку src/ в пути поиска модулей, чтобы работал импорт lib.text
-# при запуске скрипта из любой директории
 SRC_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(SRC_DIR)
-
+#os.path.abspath достраивает до полного пути
+#os.path.dirname отрезает от пути ласт часть и возвращает то что осталось
+#делаем 2 раза, чтобы дойти до src
 from lib.text import normalize, tokenize, count_freq, top_n
 
 
+"""Задание со звездочкой"""
 def print_table(items: list[tuple[str, int]]) -> None:
     if not items:
         return
@@ -97,8 +101,8 @@ def print_table(items: list[tuple[str, int]]) -> None:
     for word, count in items:
         print(f"{word.ljust(max_word_len)} | {count}")
 
-
-def main() -> None:
+"""Задание B"""
+def main(table_mode : bool = False) -> None:
     raw_text = sys.stdin.read()
 
     normalized = normalize(raw_text)
@@ -110,18 +114,18 @@ def main() -> None:
     print(f"Уникальных слов: {len(freq)}")
     print("Топ-5:")
 
-    # табличный режим включается переменной окружения TABLE_MODE=1
-    table_mode = os.environ.get("TABLE_MODE") == "1"
-
     if table_mode:
         print_table(top5)
     else:
         for word, count in top5:
             print(f"{word}:{count}")
 
-
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--table", action="store_true",
+                        help="вывести топ таблицей")
+    args = parser.parse_args()
+    main(table_mode=args.table)
 ```
 
 >- `sys.stdin.read()` читает весь ввод целиком, до EOF 
@@ -129,15 +133,19 @@ if __name__ == "__main__":
 >  `python3 src/lab03/text_stats.py` видит только папку `lab03` и не находит `lib`
 >- `len(tokens)` — всего слов, `len(freq)` — уникальных (ключи словаря не повторяются)
 >- `ljust()` дополняет слово пробелами до нужной ширины, чтобы столбцы таблицы совпали
+>- режим вывода приходит параметром `table_mode` функции `main`, а значение
+>  для него берётся из флага `--table` через `argparse`
+>- `action="store_true"` означает, что значение после флага писать не надо:
+>  указал `--table` — получаешь `True`, не указал — `False`
 ![](../../images/lab03/image_text_stats.png)
 
 ### * Таблчный режим
 
-Включается переменной окружения `TABLE_MODE=1`, ширина столбца «слово»
+Включается флагом `--table` в командной строке, ширина столбца «слово»
 считается по самому длинному слову из топа.
 
 ```
-$ echo "Привет, мир! Привет!!! по-настоящему 2025" | TABLE_MODE=1 python3 src/lab03/text_stats.py
+$ echo "Привет, мир! Привет!!! по-настоящему 2025" | python3 src/lab03/text_stats.py --table
 Всего слов: 5
 Уникальных слов: 4
 Топ-5:
@@ -149,4 +157,4 @@ $ echo "Привет, мир! Привет!!! по-настоящему 2025" | 
 по-настоящему | 1
 ```
 
-![](../../images/lab03/image_text_stats_star.png)
+![](../../images/lab03/image_text_stats_parser.png)

@@ -2,6 +2,7 @@
 
 import os
 import sys
+import argparse
 
 SRC_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(SRC_DIR)
@@ -23,7 +24,7 @@ def print_table(items: list[tuple[str, int]]) -> None:
         print(f"{word.ljust(max_word_len)} | {count}")
 
 """Задание B"""
-def main() -> None:
+def main(table_mode : bool = False) -> None:
     raw_text = sys.stdin.read()
 
     normalized = normalize(raw_text)
@@ -35,8 +36,6 @@ def main() -> None:
     print(f"Уникальных слов: {len(freq)}")
     print("Топ-5:")
 
-    table_mode = os.environ.get("TABLE_MODE") == "1"
-
     if table_mode:
         print_table(top5)
     else:
@@ -44,9 +43,12 @@ def main() -> None:
             print(f"{word}:{count}")
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--table", action="store_true",
+                        help="вывести топ таблицей")
+    args = parser.parse_args()
+    main(table_mode=args.table)
 
 #echo "привет мир привет" | python3 src/lab03/text_stats.py
 
-#echo "привет мир привет по-настоящему 2025" | TABLE_MODE=1 python3 src/lab03/text_stats.py
 
