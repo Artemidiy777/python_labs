@@ -9,13 +9,14 @@
 """
 
 import argparse
-import os
 import sys
+from pathlib import Path
 
 # добавляем папку src/ в пути поиска модулей, чтобы работал импорт lib.text
 # при запуске скрипта из любой директории
-SRC_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(SRC_DIR)
+SRC_DIR = Path(__file__).resolve().parent.parent
+sys.path.append(str(SRC_DIR))
+
 
 from lib.text import normalize, tokenize, count_freq, top_n
 from io_txt_csv import read_text, write_csv, ensure_parent_dir
