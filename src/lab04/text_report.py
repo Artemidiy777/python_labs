@@ -1,7 +1,7 @@
 """ЛР4, задание Б: отчёт по частотам слов из текстового файла.
 
 Читает текст, считает частоты через модуль ЛР3 `lib/text.py`,
-сохраняет таблицу в CSV и печатает краткое резюме.
+сохраняет таблицу в CSV и печатает краткое резюме
 
 Запуск из корня проекта:
     python3 src/lab04/text_report.py
@@ -68,7 +68,7 @@ def load_text(path: str, encoding: str) -> str:
         sys.exit(1)
     except UnicodeDecodeError:
         print(
-            f"Файл {path} не читается в кодировке {encoding}.",
+            f"Файл {path} не читается в кодировке {encoding}",
             file=sys.stderr,
         )
         print("Укажите подходящую, например: --encoding cp1251", file=sys.stderr)
@@ -83,8 +83,8 @@ def main() -> None:
     tokens = tokenize(normalize(raw_text))
     freq = count_freq(tokens)
 
-    # top_n сортирует по count вниз, при равенстве по слову вверх — ровно тот
-    # порядок, что требует задание. Берём len(freq), то есть вообще все слова
+    # top_n сортирует по count вниз, при равенстве по слову вверх тот
+    # порядок, что требует задание. берём len(freq), то есть вообще все слова
     all_counts = top_n(freq, len(freq))
 
     ensure_parent_dir(args.out)
