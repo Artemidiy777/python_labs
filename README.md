@@ -335,3 +335,76 @@ $ python3 src/lab04/text_report.py --in data/lab04/net_takogo.txt
 ![](./images/lab04/image_empty.png)
 
 > команды, кодировк и тест кейсы: [src/lab04/README.md](./src/lab04/README.md)
+
+
+# Лабораторная работа № 5
+
+`src/lab05/json_csv.py` — конвертация JSON в  CSV
+
+`src/lab05/csv_xlsx.py` — CSV -> XLSX через `openpyxl`, это единственная зависимость,
+она записана в `requirements.txt`.
+
+>- входные примеры лежат в `data/lab05/samples`, результаты в `data/lab05/out`
+>- порядок колонок берётся как в первом объекте, новые ключи дописываются в конец
+>- отсутствующие поля заполняются пустой строкой (`restval=""`)
+>- после `csv_to_json` значения остаются строками: в CSV типов нет, там всё текст
+>- лист в XLSX называется `Sheet1`, ширина колонки равна самому длинному тексту, но не меньше 8
+>- пустой файл, пустой список и CSV без записей дают `ValueError`, отсутствующий файл — `FileNotFoundError`
+
+## Установка и запуск
+
+```
+pip install -r requirements.txt
+```
+
+```
+$ python3 src/lab05/json_csv.py
+people.json   -> people_from_json.csv
+people.csv    -> people_from_csv.json
+students.json -> students_from_json.csv (с пропусками полей)
+cities.csv    -> cities_from_csv.json
+
+$ python3 src/lab05/csv_xlsx.py
+people.csv -> people.xlsx
+cities.csv -> cities.xlsx
+```
+
+![](./images/lab05/image_run.png)
+
+## Сценарий 1 — JSON -> CSV
+
+`students.json` содержит три объекта с разным набором полей: у второго нет `gpa`,
+у третьего есть лишнее `starosta`. Колонки собираются по всем объектам, пропуски пустые.
+
+```
+fio,group,gpa,starosta
+Фазлыйнуров Артем Артурович,БИВТ-26-6-3,4.6,
+Иванов Иван Иванович,БИВТ-26-6-3,,
+Петрова Анна Сергеевна,БИВТ-26-6-1,5.0,True
+```
+
+![](./images/lab05/image_json_to_csv.png)
+
+## Сценарий 2 — CSV -> JSON
+
+`people.csv` из 5 записей даёт 5 объектов. Ключи совпадают с заголовком CSV,
+значения строковые, поэтому возраст записан как `"22"`.
+
+```
+[
+  {
+    "name": "Alice",
+    "age": "22",
+    "city": "SPB"
+  },
+]
+```
+
+![](./images/lab05/image_csv_to_json.png)
+
+## Сценарий 3 — CSV --> XLSX
+
+`cities.csv` превращается в книгу с листом `Sheet1`. Ширины: `city` 13 по слову
+`Yekaterinburg`, `country` 7 по минимуму, `population` 10 по длине заголовка.
+
+![](./images/lab05/image_xlsx.png)
