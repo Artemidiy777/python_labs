@@ -408,3 +408,72 @@ fio,group,gpa,starosta
 `Yekaterinburg`, `country` 7 по минимуму, `population` 10 по длине заголовка.
 
 ![](./images/lab05/image_xlsx.png)
+
+
+# Лабораторная работа № 6
+
+Две консольные утилиты на `argparse` с подкомандами. Своей логики в них почти нет:
+они разбирают аргументы и вызывают функции из прошлых лаб — тексты из ЛР3–ЛР4,
+конвертеры из ЛР5. Запуск из корня проекта.
+
+| утилита | подкоманда | параметры | что делает |
+|---|---|---|---|
+| `cli_text` | `stats` | `--input`, `--top` | считает слова, печатает топ-N |
+| `cli_text` | `cat` | `--input`, `-n` | выводит файл построчно, `-n` нумерует строки |
+| `cli_convert` | `json2csv` | `--in`, `--out` | JSON -> CSV |
+| `cli_convert` | `csv2json` | `--in`, `--out` | CSV -> JSON |
+| `cli_convert` | `csv2xlsx` | `--in`, `--out` | CSV -> XLSX |
+
+>- подкоманды созданы через `add_subparsers(dest="command", required=True)`: без команды программа не запустится
+>- выбранная подкоманда лежит в `args.command`, нужная функция вызывается через `if/elif`
+>- ошибки (нет файла, не та кодировка, неверный аргумент) выводятся одной строкой через `parser.error`, код выхода 2
+
+## cli_text
+
+```
+$ python3 -m src.lab06.cli_text cat --input data/lab05/samples/people.csv -n
+1: name,age,city
+2: Alice,22,SPB
+3: Bob,25,Moscow
+
+$ python3 -m src.lab06.cli_text stats --input data/lab06/samples/text.txt --top 5
+Всего слов: 38
+Уникальных слов: 30
+Топ-5:
+данные:4
+утилита:3
+python:2
+а:2
+файл:2
+```
+
+![](./images/lab06/image_text.png)
+
+## cli_convert
+
+```
+$ python3 -m src.lab06.cli_convert json2csv --in data/lab05/samples/people.json --out data/lab06/out/people.csv
+Готово: data/lab05/samples/people.json -> data/lab06/out/people.csv
+
+$ python3 -m src.lab06.cli_convert csv2json --in data/lab05/samples/people.csv --out data/lab06/out/people.json
+$ python3 -m src.lab06.cli_convert csv2xlsx --in data/lab05/samples/people.csv --out data/lab06/out/people.xlsx
+```
+
+![](./images/lab06/image_convert.png)
+
+## Справка и ошибки
+
+```
+$ python3 -m src.lab06.cli_convert --help
+$ python3 -m src.lab06.cli_text stats --help
+
+$ python3 -m src.lab06.cli_text cat --input нет_такого.txt
+cli_text.py: error: файл не найден: нет_такого.txt
+
+$ python3 -m src.lab06.cli_text stats --input data/lab06/samples/text.txt --top abc
+cli_text.py stats: error: argument --top: invalid int value: 'abc'
+```
+
+![](./images/lab06/image_help.png)
+
+![](./images/lab06/image_errors.png)
