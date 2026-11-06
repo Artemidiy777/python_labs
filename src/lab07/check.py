@@ -28,7 +28,6 @@ def check_sorting(fn, trials: int = 100) -> int:
         assert nums == original, f"{fn.__name__} изменила исходный список {original}"
     return trials
 
-
 def check_search(trials: int = 100) -> int:
     """Сравнить linear_search с list.index, binary_search — на отсортированных
 
