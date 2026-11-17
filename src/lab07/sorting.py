@@ -40,9 +40,9 @@ def selection_sort(nums: list[int]) -> list[int]:
 
 
 def insertion_sort(nums: list[int]) -> list[int]:
-    """Новый список по возрастанию, вставляя элемент в готовую левую часть
-
-    insertion_sort([3, 1, 2]) -> [1, 2, 3]
+    """
+        Новый список по возрастанию, вставляя элемент в готовую левую часть
+        insertion_sort([3, 1, 2]) -> [1, 2, 3]
     """
     nums = nums.copy()
     for i in range(1, len(nums)): 
