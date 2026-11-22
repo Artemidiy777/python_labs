@@ -67,8 +67,6 @@ def ll_insert(head: Node | None, idx: int, value) -> Node:
     return head
 
 
-
-
 def ll_remove(head: Node | None, value) -> Node | None:
     """Удалить первое вхождение значения"""
     if head is None:
@@ -95,7 +93,9 @@ def ll_reverse(head: Node | None) -> Node | None:
         cur = nxt
     return prev
 
+
 def ll_repr(head: Node | None) -> str:
+    """Вернуть строку цепочки узлов"""
     parts = []
     current = head
     while current is not None:
@@ -104,13 +104,16 @@ def ll_repr(head: Node | None) -> str:
     parts.append('None')
     return ' -> '.join(parts)
 
+
 def ll_middle(head: Node | None) -> Node | None:
+    """Найти средний узел двумя указателями"""
     slow = head
     fast = head
     while fast is not None and fast.next is not None:
         slow = slow.next
         fast = fast.next.next
     return slow
+
 
 def ll_has_cycle(head: Node | None) -> bool:
     """Найти цикл алгоритмом Флойда"""
@@ -124,22 +127,27 @@ def ll_has_cycle(head: Node | None) -> bool:
     return False
 
 
+def main() -> None:
+    """Показать операции со связным списком"""
+    head = ll_from_list([10, 20, 30])
+    print('Исходный:', ll_repr(head))
+    print('Как list:', ll_to_list(head))
+    print('Длина:', ll_length(head))
+    head = ll_prepend(head, 5)
+    head = ll_append(head, 40)
+    head = ll_insert(head, 2, 15)
+    print('После вставок:', ll_repr(head))
+    head = ll_remove(head, 15)
+    print('До разворота:', ll_repr(head))
+    head = ll_reverse(head)
+    print('После разворота:', ll_repr(head))
+    print('Средний узел:', ll_middle(head).value)
+    print('Есть цикл:', ll_has_cycle(head))
+
+    cycle_head = ll_from_list([10, 20, 30])
+    cycle_head.next.next.next = cycle_head
+    print('Искусственный цикл:', ll_has_cycle(cycle_head))
 
 
-
-
-
-    
-        
-    
-
-
-
-
-
-
-
-
-
-
-
+if __name__ == '__main__':
+    main()

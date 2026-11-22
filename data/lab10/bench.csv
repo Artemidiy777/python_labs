@@ -1,0 +1,5 @@
+operation,n,list_seconds,deque_or_ll_seconds,speedup
+queue,10000,0.004554,0.000313,14.55
+prepend,10000,0.025071,0.001315,19.07
+queue,100000,0.583624,0.001979,294.93
+prepend,100000,1.450121,0.011777,123.13
