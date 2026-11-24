@@ -33,7 +33,7 @@ is_balanced('([]{})')           # True
 python3 -m src.lab10.structures
 ```
 
-![Стек, очередь и проверка скобок](../../images/lab10/image_structures.png)
+![Стек, очередь и проверка скобок](../../images/lab10/image.png)
 
 ## Односвязный список
 
